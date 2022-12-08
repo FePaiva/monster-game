@@ -9,16 +9,30 @@ const LOG_EVENT_PLAYER_STRONG_ATTACK = 'PLAYER_STRONG_ATTACK';
 const LOG_EVENT_MONSTER_ATTACK = 'MONSTER_ATTACK';
 const LOG_EVENT_PLAYER_HEAL = 'PLAYER HEAL';
 const LOG_EVENT_GAME_OVER = 'GAME OVER';
-const enteredValue = prompt(
-  'Please enter a maximum life for you and the monster.',
-  '100'
-);
 
-let chosenMaxLife = parseInt(enteredValue);
 let battleLog = [];
 
-if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
+function getMaxLifeValue() {
+  const enteredValue = prompt(
+    'Please enter a maximum life for you and the monster.',
+    '100'
+  );
+  const parsedValue = parseInt(enteredValue);
+
+  if (isNaN(parsedValue) || parsedValue <= 0) {
+    throw { message: 'Invalid input. It has to be a number.' };
+  }
+  return parsedValue;
+}
+
+let chosenMaxLife;
+
+try {
+  chosenMaxLife = getMaxLifeValue();
+} catch (error) {
+  console.log(error);
   chosenMaxLife = 100;
+  alert('You did not enter a number. Max life defaulted to 100.');
 }
 
 let currentMonsterHealth = chosenMaxLife;
@@ -34,7 +48,7 @@ function writeToLog(e, val, monsterHealth, playerHealth) {
     finalMonstersHealth: monsterHealth,
     finalPlayerHealth: playerHealth,
   };
-
+  // can use switch instead of if else below.
   // switch (e) {
   //   case LOG_EVENT_PLAYER_ATTACK:
   //   case LOG_EVENT_PLAYER_STRONG_ATTACK:
@@ -171,7 +185,13 @@ function healPlayerHandler() {
 }
 
 function printLogHandler() {
-  console.log(battleLog);
+  for (let i = 0; i <= battleLog.length; i++) {
+    console.log('battleLog', battleLog[i]);
+  }
+  // for of loop does not show index like the for loop.
+  // for (const logEntry of battleLog) {
+  // console.log(logEntry);
+  // }
 }
 
 attackBtn.addEventListener('click', attackHandler);

@@ -3,7 +3,10 @@ html {
 }
 
 body {
-  background: #2c2c2c;
+  /* background: #2c2c2c; */
+  background-image: url("../images/background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 h2 {

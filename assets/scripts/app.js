@@ -12,6 +12,10 @@ const LOG_EVENT_GAME_OVER = 'GAME OVER';
 
 let battleLog = [];
 
+function getName() {
+  return prompt('Your name: ', '');
+}
+
 function getMaxLifeValue() {
   const enteredValue = prompt(
     'Please enter a maximum life for you and the monster.',
@@ -40,6 +44,19 @@ let currentPlayerHealth = chosenMaxLife;
 let hasBonusLife = true;
 
 adjustHealthBars(chosenMaxLife);
+
+function greet() {
+  const userName = getName();
+  const healthValue = chosenMaxLife;
+  alert(
+    'Hello ' +
+      userName +
+      '. Your health will be set up to: ' +
+      healthValue +
+      '.'
+  );
+}
+greet();
 
 function writeToLog(e, val, monsterHealth, playerHealth) {
   let logEntry = {
